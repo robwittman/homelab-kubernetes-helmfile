@@ -1,0 +1,32 @@
+helmDefaults:
+  tillerless: true
+  tillerNamespace: ingress
+  createNamespace: true
+
+repositories:
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+  - name: ingress-nginx
+    url: https://kubernetes.github.io/ingress-nginx
+
+releases:
+# Figure out how to get secrets managed
+#  - name: metallb
+#    chart: bitnami/metallb
+#    namespace: ingress
+#    values: []
+
+  - name: nginx
+    chart: ingress-nginx/ingress-nginx
+    namespace: ingress
+    values:
+      - controller:
+          ingressClassResource:
+            enabled: true
+            default: true
+          metrics:
+            enabled: true
+            serviceMonitor:
+              enabled: true
+      - defaultBackend:
+          enabled: true
