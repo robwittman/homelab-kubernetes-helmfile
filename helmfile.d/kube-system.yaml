@@ -1,0 +1,12 @@
+repositories:
+  - name: nfs-subdir-external-provisioner
+    url: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
+
+releases:
+  - name: nfs-subdir-external-provisioner
+    chart: nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
+    namespace: kube-system
+    values:
+      - nfs:
+          server: 192.168.0.75
+          path: /mnt/data
