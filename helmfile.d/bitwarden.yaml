@@ -1,0 +1,17 @@
+helmDefaults:
+  tillerless: true
+  tillerNamespace: bitwarden
+  createNamespace: true
+
+repositories:
+  - name: bitwarden
+    url: https://cdwv.github.io/bitwarden-k8s/
+
+releases:
+  - name: bitwarden
+    chart: bitwarden/bitwarden-k8s
+    namespace: bitwarden
+    values:
+      - persistence:
+          enabled: true
+          storageClass: nfs-client
