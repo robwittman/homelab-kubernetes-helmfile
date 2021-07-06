@@ -1,0 +1,33 @@
+helmDefaults:
+  tillerless: true
+  tillerNamespace: tracing
+  createNamespace: true
+
+repositories:
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
+
+releases:
+  - name: tempo
+    chart: grafana/tempo-distributed
+    namespace: tracing
+    values:
+      - ingester:
+          persistence:
+            enabled: true
+            storageClass: nfs-client
+      - traces:
+          jaeger:
+            grpc: true
+            thriftBinary: true
+            thriftCompact: true
+            thriftHttp: true
+          zipkin: true
+          otlp:
+            http: true
+            grpc: true
+          opencensus: true
+      - memcachedExporter:
+          enabled: true
+      - serviceMonitor:
+          enabled: true

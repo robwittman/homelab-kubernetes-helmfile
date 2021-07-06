@@ -1,0 +1,62 @@
+helmDefaults:
+  tillerless: true
+  tillerNamespace: keycloak
+  createNamespace: true
+
+repositories:
+  - name: codecentric
+    url: https://codecentric.github.io/helm-charts
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+
+releases:
+#  - name: postgres
+#    chart: bitnami/postgresql
+#    namespace: keycloak
+#    values:
+#      - global:
+#          storageClass: nfs-client
+#          postgresql:
+#            existingSecret: keycloak-postgres
+#            postgresqlDatabase: keycloak
+#      - metrics:
+#          enabled: true
+#          serviceMonitor:
+#            enabled: true
+#      - serviceAccount:
+#          enabled: true
+#      - persistence:
+#          enabled: true
+#          size: 8Gi
+#      - replication:
+#          enabled: false
+#      - extraEnv:
+#          - name: BITNAMI_DEBUG
+#            value: "true"
+#      - volumePermissions:
+#          enabled: true
+#      - securityContext:
+#          fsGroup: 0
+  - name: keycloak
+    chart: codecentric/keycloak
+    namespace: keycloak
+    values:
+      - rbac:
+          create: true
+      - serviceMonitor:
+          enabled: true
+#      - postgres:
+#          enabled: false
+#      - extraEnv: |
+#          - name: DB_VENDOR
+#            value: postgres
+#          - name: DB_ADDR
+#            value: postgres
+#          - name: DB_PORT
+#            value: "5432"
+#          - name: DB_DATABASE
+#            value: keycloak
+#
+#      - extraEnvFrom: |
+#          - secretRef:
+#              name:
