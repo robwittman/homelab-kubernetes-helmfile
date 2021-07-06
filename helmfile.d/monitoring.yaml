@@ -66,3 +66,10 @@ releases:
                 cpu: 25m
                 memory: 20Mi
 
+      - grafana:
+          additionalDataSources:
+            - name: loki
+              type: loki
+              access: proxy
+              url: http://loki:3100
+

@@ -1,0 +1,29 @@
+helmDefaults:
+  tillerless: true
+  tillerNamespace: logging
+  createNamespace: true
+
+repositories:
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
+
+releases:
+  - name: loki
+    chart: grafana/loki
+    namespace: logging
+    values:
+      - persistence:
+          enabled: true
+          size: 20Gi
+          storageClassName: nfs-client
+      - serviceMonitor:
+          enabled: true
+
+  - name: promtail
+    chart: grafana/promtail
+    namespace: logging
+    values:
+      - serviceMonitor:
+          enabled: true
+      - config:
+          lokiAddress: http://loki:3100/loki/api/v1/push
