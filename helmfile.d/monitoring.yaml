@@ -71,5 +71,8 @@ releases:
             - name: loki
               type: loki
               access: proxy
-              url: http://loki:3100
-
+              url: http://loki.logging:3100
+            - name: tempo
+              type: tempo
+              access: proxy
+              url: http://tempo-tempo-distributed-query-frontend.tracing:3100
